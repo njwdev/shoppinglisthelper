@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const theme = createMuiTheme({
   palette: {
@@ -25,6 +26,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <BrowserRouter>
     <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <App />
     </MuiThemeProvider>
   </BrowserRouter>,
