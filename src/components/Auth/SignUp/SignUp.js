@@ -12,12 +12,13 @@ const data = (name, label, type, id, autoComplete) => ({
   autoComplete,
 });
 
-const loginFormElements = [
+const signUpFormElements = [
+  data('name', 'Name', 'text', 'name', 'name'),
   data('email', 'Email', 'email', 'email', 'email'),
   data('password', 'Password', 'password', 'password', 'current-password'),
 ];
 
-const Login = () => (
+const SignUp = () => (
   <PageContainer>
     <Typography
       component="h1"
@@ -25,11 +26,11 @@ const Login = () => (
       fullWidth
       style={{ display: 'block' }}
     >
-      Login
+      Sign up
     </Typography>
 
     <form>
-      {loginFormElements.map(data => {
+      {signUpFormElements.map(data => {
         return (
           <TextField
             variant="outlined"
@@ -44,11 +45,11 @@ const Login = () => (
           />
         );
       })}
+      <Button style={{ textTransform: 'capitalize' }} fullWidth>
+        Sign up
+      </Button>
     </form>
-    <Button style={{ textTransform: 'capitalize' }} fullWidth>
-      Login
-    </Button>
   </PageContainer>
 );
 
-export default Login;
+export default SignUp;
