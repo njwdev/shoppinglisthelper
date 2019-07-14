@@ -21,6 +21,9 @@ const theme = createMuiTheme({
     useNextVariants: true,
     fontFamily: 'Josefin Sans',
   },
+  button: {
+    textTransform: 'capitalize',
+  },
 });
 
 ReactDOM.render(
