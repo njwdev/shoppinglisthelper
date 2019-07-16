@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import GridList from '@material-ui/core/GridList';
 import PageContainer from '../layout/PageContainer';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 import myListsStyles from './myListsStyles';
 import { withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 const data = (listLink, title, sharedWith, created, lastUsed) => ({
   listLink,
@@ -38,40 +40,49 @@ class MyLists extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <GridList cellHeight={180} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-            <ListSubheader component="div">My Lists</ListSubheader>
-          </GridListTile>
-          {myLists.map(data => {
-            return (
-              <GridListTile component="a" href={data.listLink}>
-                <img
-                  src="https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80"
-                  alt="random plane"
-                />
-                <GridListTileBar
-                  title={data.title}
-                  subtitle={
-                    <ul style={{ listStyleType: 'none', padding: '0' }}>
-                      <li> Shared with: {data.sharedWith}</li>
-                      <li> Created on: {data.created} </li>
-                      <li> Last used: {data.lastUsed}</li>
-                    </ul>
-                  }
-                  component={'a'}
-                  href="/login"
-                />
-              </GridListTile>
-            );
-          })}
-        </GridList>
-        <div>
-          <Fab>
-            <i class="material-icons">add</i>
-          </Fab>
+      <PageContainer>
+        <div className={classes.root}>
+          <Grid container justify="center" spacing={2}>
+            <h1> My Lists</h1>
+            <Grid item />
+            {myLists.map(data => {
+              return (
+                <Grid key={data.title} xs={12} item>
+                  <Paper
+                    spacing={10}
+                    href="/list"
+                    style={{ border: '2px solid #f50057' }}
+                  >
+                    <a
+                      href="/list"
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <Typography
+                        align="center"
+                        variant="h6"
+                        style={{ padding: 10 }}
+                      >
+                        {data.title}
+                      </Typography>
+                      <Divider />
+                      <List>
+                        <ListItem> Shared with: {data.sharedWith}</ListItem>
+                        <ListItem> Created on: {data.created} </ListItem>
+                        <ListItem> Last used: {data.lastUsed}</ListItem>
+                      </List>
+                    </a>
+                  </Paper>
+                </Grid>
+              );
+            })}
+          </Grid>
+          <div>
+            <Fab href="/createlist" style={{ marginTop: 10 }}>
+              <i className="material-icons">add</i>
+            </Fab>
+          </div>
         </div>
-      </div>
+      </PageContainer>
     );
   }
 }

@@ -6,3 +6,4 @@ export const FORGOTPASSWORD = '/forgotpassword';
 export const ACCOUNT = '/account';
 export const MYLISTS = '/mylists';
 export const LIST = '/list';
+export const CREATELIST = '/createlist';
