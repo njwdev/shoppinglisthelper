@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import landingStyles from './LandingStyles';
-import Icon from '@material-ui/core/Icon';
 
 const Landing = props => {
   const { classes } = props;
@@ -19,7 +18,6 @@ const Landing = props => {
           letterSpacing: '.25em',
         }}
       >
-        {/* <Icon style={{ marginRight: '20px' }}>shopping_basket</Icon> */}
         Coordinate your shopping trips
       </Typography>
 

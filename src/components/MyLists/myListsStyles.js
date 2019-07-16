@@ -4,7 +4,9 @@ const myListsStyles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
+    flexGrow: 1,
   },
+
   gridList: {
     width: 500,
     height: 450,

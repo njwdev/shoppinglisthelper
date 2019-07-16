@@ -9,7 +9,7 @@ const PageContainer = props => {
       direction="row"
       justify="center"
       alignItems="center"
-      style={{ padding: '10%' }}
+      style={{ padding: '5%' }}
     >
       <Grid item xs={12} sm={8} md={6}>
         {children}

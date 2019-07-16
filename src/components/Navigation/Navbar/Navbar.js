@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import navbarStyles from './styles/NavbarStyles';
+import navbarStyles from './styles/navbarStyles';
 
 const data = (text, link) => ({ text, link });
 const nonAuthButtons = [data('Login', '/login'), data('About', '/about')];
@@ -22,6 +22,7 @@ const Navbar = props => {
           </Typography>
           {nonAuthButtons.map(data => (
             <Button
+              key={data.text}
               className={classes.navButton}
               href={data.link}
               variant="contained"
