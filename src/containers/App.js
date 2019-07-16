@@ -9,6 +9,8 @@ import About from '../components/About/About';
 import Login from '../components/Auth/Login/Login';
 import NotFound from '../components/NotFound/NotFound';
 import SignUp from '../components/Auth/SignUp/SignUp';
+import MyLists from '../components/MyLists/MyLists';
+import List from '../components/MyLists/List/List';
 
 const App = () => (
   <div>
@@ -19,6 +21,8 @@ const App = () => (
         <Route exact path={ROUTES.LOGIN} component={Login} />
         <Route exact path={ROUTES.ABOUT} component={About} />
         <Route exact path={ROUTES.SIGNUP} component={SignUp} />
+        <Route exact path={ROUTES.MYLISTS} component={MyLists} />
+        <Route exact path={ROUTES.LIST} component={List} />
         <Route exact path="*" component={NotFound} />
       </Switch>
     </div>
