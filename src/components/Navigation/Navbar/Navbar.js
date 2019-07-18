@@ -7,7 +7,11 @@ import Typography from '@material-ui/core/Typography';
 import navbarStyles from './styles/navbarStyles';
 
 const data = (text, link) => ({ text, link });
-const nonAuthButtons = [data('Login', '/login'), data('About', '/about')];
+const nonAuthButtons = [
+  data('My Lists', '/mylists'),
+  data('Login', '/login'),
+  data('About', '/about'),
+];
 
 const Navbar = props => {
   const { classes } = props;
