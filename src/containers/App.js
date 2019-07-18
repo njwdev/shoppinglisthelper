@@ -10,7 +10,7 @@ import Login from '../components/Auth/Login/Login';
 import NotFound from '../components/NotFound/NotFound';
 import SignUp from '../components/Auth/SignUp/SignUp';
 import MyLists from '../components/MyLists/MyLists';
-import List from '../components/MyLists/List/List';
+import ShoppingList from '../components/MyLists/ShoppingList/ShoppingList';
 import CreateList from '../components/MyLists/CreateList/CreateList';
 
 const App = () => (
@@ -23,7 +23,7 @@ const App = () => (
         <Route exact path={ROUTES.ABOUT} component={About} />
         <Route exact path={ROUTES.SIGNUP} component={SignUp} />
         <Route exact path={ROUTES.MYLISTS} component={MyLists} />
-        <Route exact path={ROUTES.LIST} component={List} />
+        <Route exact path={ROUTES.LIST} component={ShoppingList} />
         <Route exact path={ROUTES.CREATELIST} component={CreateList} />
         <Route exact path="*" component={NotFound} />
       </Switch>
