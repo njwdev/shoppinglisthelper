@@ -1,54 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PageContainer from '../../layout/PageContainer';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField/';
 import Button from '@material-ui/core/Button';
 
-const data = (name, label, type, id, autoComplete) => ({
-  name,
-  label,
-  type,
-  id,
-  autoComplete,
-});
+class Login extends Component {
+  state = {
+    email: '',
+    password: '',
+  };
 
-const loginFormElements = [
-  data('email', 'Email', 'email', 'email', 'email'),
-  data('password', 'Password', 'password', 'password', 'current-password'),
-];
+  onChangeHandler = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
-const Login = () => (
-  <PageContainer>
-    <Typography
-      component="h1"
-      variant="h5"
-      fullWidth
-      style={{ display: 'block' }}
-    >
-      Login
-    </Typography>
+  onSubmitHandler = e => {
+    e.preventDefault();
+    console.log(this.state);
+  };
 
-    <form>
-      {loginFormElements.map(data => {
-        return (
+  render() {
+    return (
+      <PageContainer>
+        <Typography component="h1" variant="h5" style={{ display: 'block' }}>
+          Login
+        </Typography>
+
+        <form onSubmit={this.onSubmitHandler}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            name={data.name}
-            label={data.label}
-            type={data.type}
-            id={data.id}
-            autoComplete={data.autoComplete}
+            name="email"
+            label="Email"
+            type="email"
+            onChange={this.onChangeHandler}
           />
-        );
-      })}
-    </form>
-    <Button style={{ textTransform: 'capitalize' }} fullWidth>
-      Login
-    </Button>
-  </PageContainer>
-);
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            onChange={this.onChangeHandler}
+          />
+          <Button
+            type="submit"
+            style={{ textTransform: 'capitalize' }}
+            fullWidth
+          >
+            Login
+          </Button>
+        </form>
+      </PageContainer>
+    );
+  }
+}
 
 export default Login;

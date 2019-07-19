@@ -32,10 +32,11 @@ const shoppingListItems = [
 
 class ShoppingList extends Component {
   render() {
+    const id = this.props.match.params.id;
     return (
       <PageContainer>
         <MaterialTable
-          title="Groceries"
+          title={id}
           options={{
             actionsCellStyle: {
               backgroundColor: null,
@@ -46,10 +47,10 @@ class ShoppingList extends Component {
             search: false,
           }}
           columns={[
-            { title: 'Item', field: 'item' },
+            { title: 'Item', cellStyle: { cursor: 'default' }, field: 'item' },
             {
               title: 'Quantity',
-
+              cellStyle: { cursor: 'default' },
               field: 'quantity',
             },
           ]}
@@ -66,12 +67,6 @@ class ShoppingList extends Component {
               }),
           }}
           actions={[
-            // {
-            //   icon: 'edit',
-            //   tooltip: 'Edit item',
-            //   onClick: (event, rowData) =>
-            //     alert('You clicked on ' + rowData.item),
-            // },
             {
               icon: 'done',
               tooltip: 'Purchased item',
