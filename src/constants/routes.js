@@ -5,5 +5,5 @@ export const SIGNUP = '/signup';
 export const FORGOTPASSWORD = '/forgotpassword';
 export const ACCOUNT = '/account';
 export const MYLISTS = '/mylists';
-export const LIST = '/list';
+export const LIST = '/list/:id';
 export const CREATELIST = '/createlist';
