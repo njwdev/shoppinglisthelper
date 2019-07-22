@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PageContainer from '../layout/PageContainer';
 import myListsStyles from './myListsStyles';
 import { withStyles } from '@material-ui/core';
@@ -10,42 +11,18 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
-const data = (listLink, title, sharedWith, created, lastUsed) => ({
-  listLink,
-  title,
-  sharedWith,
-  created,
-  lastUsed,
-});
-
-const myLists = [
-  data('/list', 'Groceries', 'gf', 'January 16th', 'Yesterday'),
-  data(
-    '/list',
-    'Holiday Things',
-    'andrew, clive, bob, phil',
-    'December 12th',
-    'Two weeks ago',
-  ),
-  data(
-    '/list',
-    'Christmas Presents',
-    'brother and sister',
-    'December 14th',
-    '3 weeks ago',
-  ),
-];
-
 class MyLists extends Component {
   render() {
-    const { classes } = this.props;
+    const { classes, shoppingList } = this.props;
     return (
       <PageContainer>
         <div className={classes.root}>
           <Grid container justify="center" spacing={2}>
-            <h1> My Lists</h1>
+            <Typography variant="h4" style={{ padding: 10 }}>
+              My Lists
+            </Typography>
             <Grid item />
-            {myLists.map(data => {
+            {shoppingList.map(data => {
               return (
                 <Grid key={data.title} xs={12} item>
                   <Paper
@@ -87,4 +64,10 @@ class MyLists extends Component {
   }
 }
 
-export default withStyles(myListsStyles)(MyLists);
+const mapStateToProps = state => {
+  return {
+    shoppingList: state.shoppingList.lists,
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(myListsStyles)(MyLists));

@@ -6,9 +6,13 @@ import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './store/reducers/rootReducer';
 import { Provider } from 'react-redux';
+import { reduxFirestore, getFirestore } from 'redux-firestore';
+import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import thunk from 'redux-thunk';
+import firebaseConfig from './config/firebase/firebaseConfig';
 
 const theme = createMuiTheme({
   palette: {
@@ -29,7 +33,14 @@ const theme = createMuiTheme({
   },
 });
 
-const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+    reduxFirestore(firebaseConfig),
+    reactReduxFirebase(firebaseConfig),
+  ),
+);
 
 ReactDOM.render(
   <Provider store={store}>
