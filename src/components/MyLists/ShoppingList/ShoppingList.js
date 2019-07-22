@@ -1,42 +1,19 @@
 import React, { Component } from 'react';
 import PageContainer from '../../layout/PageContainer';
 import MaterialTable from 'material-table';
-
-const shoppingListItems = [
-  { item: 'Bread', quantity: 1 },
-  {
-    item: 'Chicken breasts',
-    quantity: 2,
-  },
-  {
-    item: 'Bottled water',
-    quantity: '6 litres',
-  },
-  {
-    item: 'Bottled water',
-    quantity: '6 litres',
-  },
-  {
-    item: 'Bottled water',
-    quantity: '6 litres',
-  },
-  {
-    item: 'Bottled water',
-    quantity: '6 litres',
-  },
-  {
-    item: 'Bottled water',
-    quantity: '6 litres',
-  },
-];
+import { connect } from 'react-redux';
 
 class ShoppingList extends Component {
   render() {
+    const { shoppingList } = this.props;
+    console.log(shoppingList[0]);
+    console.log(this.props);
+
     const id = this.props.match.params.id;
     return (
       <PageContainer>
         <MaterialTable
-          title={id}
+          title={id + ': ' + shoppingList[0].title}
           options={{
             actionsCellStyle: {
               backgroundColor: null,
@@ -54,7 +31,7 @@ class ShoppingList extends Component {
               field: 'quantity',
             },
           ]}
-          data={shoppingListItems}
+          data={shoppingList[0].items}
           editable={{
             onRowAdd: newData =>
               new Promise(resolve => {
@@ -92,4 +69,10 @@ class ShoppingList extends Component {
   }
 }
 
-export default ShoppingList;
+const mapStateToProps = state => {
+  return {
+    shoppingList: state.shoppingList.lists,
+  };
+};
+
+export default connect(mapStateToProps)(ShoppingList);

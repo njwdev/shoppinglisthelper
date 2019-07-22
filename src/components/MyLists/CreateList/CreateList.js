@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createList } from '../../../store/actions/listActions';
 import PageContainer from '../../layout/PageContainer';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField/';
@@ -17,7 +19,8 @@ class CreateList extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.createList(this.state);
+    console.log('submit pressed', this.state);
   };
 
   render() {
@@ -73,4 +76,13 @@ class CreateList extends Component {
   }
 }
 
-export default CreateList;
+const mapDispatchToProps = dispatch => {
+  return {
+    createList: list => dispatch(createList(list)),
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(CreateList);
