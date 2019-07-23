@@ -10,6 +10,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 
 class MyLists extends Component {
   render() {
@@ -22,36 +24,37 @@ class MyLists extends Component {
               My Lists
             </Typography>
             <Grid item />
-            {shoppingList.map(data => {
-              return (
-                <Grid key={data.title} xs={12} item>
-                  <Paper
-                    spacing={10}
-                    href="/list"
-                    style={{ border: '2px solid #f50057' }}
-                  >
-                    <a
+            {shoppingList &&
+              shoppingList.map(data => {
+                return (
+                  <Grid key={data.createdOn} xs={12} item>
+                    <Paper
+                      spacing={10}
                       href="/list"
-                      style={{ textDecoration: 'none', color: 'inherit' }}
+                      style={{ border: '2px solid #f50057' }}
                     >
-                      <Typography
-                        align="center"
-                        variant="h6"
-                        style={{ padding: 10 }}
+                      <a
+                        href="/list"
+                        style={{ textDecoration: 'none', color: 'inherit' }}
                       >
-                        {data.title}
-                      </Typography>
-                      <Divider />
-                      <List>
-                        <ListItem> Shared with: {data.sharedWith}</ListItem>
-                        <ListItem> Created on: {data.created} </ListItem>
-                        <ListItem> Last used: {data.lastUsed}</ListItem>
-                      </List>
-                    </a>
-                  </Paper>
-                </Grid>
-              );
-            })}
+                        <Typography
+                          align="center"
+                          variant="h6"
+                          style={{ padding: 10 }}
+                        >
+                          {data.listname}
+                        </Typography>
+                        <Divider />
+                        <List>
+                          <ListItem> Shared with: {data.sharedWith}</ListItem>
+                          <ListItem> Description {data.description} </ListItem>
+                          <ListItem> Author: {data.authorId}</ListItem>
+                        </List>
+                      </a>
+                    </Paper>
+                  </Grid>
+                );
+              })}
           </Grid>
           <div>
             <Fab href="/createlist" style={{ marginTop: 10 }}>
@@ -65,9 +68,13 @@ class MyLists extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
-    shoppingList: state.shoppingList.lists,
+    shoppingList: state.firestore.ordered.lists,
   };
 };
 
-export default connect(mapStateToProps)(withStyles(myListsStyles)(MyLists));
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: 'lists' }]),
+)(withStyles(myListsStyles)(MyLists));
