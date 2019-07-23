@@ -9,10 +9,15 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './store/reducers/rootReducer';
 import { Provider } from 'react-redux';
-import { reduxFirestore, getFirestore } from 'redux-firestore';
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
+import firebase from './config/firebase/firebaseConfig';
+
+import {
+  createFirestoreInstance,
+  getFirestore,
+  reduxFirestore,
+} from 'redux-firestore';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import thunk from 'redux-thunk';
-import firebaseConfig from './config/firebase/firebaseConfig';
 
 const theme = createMuiTheme({
   palette: {
@@ -33,23 +38,40 @@ const theme = createMuiTheme({
   },
 });
 
+// react-redux-firebase config
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true,
+};
+
+const middleware = [thunk.withExtraArgument({ getFirestore })];
+
 const store = createStore(
   rootReducer,
   compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-    reduxFirestore(firebaseConfig),
-    reactReduxFirebase(firebaseConfig),
+    applyMiddleware(...middleware),
+    reduxFirestore(firebase),
   ),
 );
 
+const rrfProps = {
+  firebase,
+  config: firebase,
+  rrfConfig: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance,
+};
+
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </MuiThemeProvider>
-    </BrowserRouter>
+    <ReactReduxFirebaseProvider {...rrfProps}>
+      <BrowserRouter>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </MuiThemeProvider>
+      </BrowserRouter>
+    </ReactReduxFirebaseProvider>
   </Provider>,
   document.getElementById('root'),
 );

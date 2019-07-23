@@ -13,6 +13,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+try {
+  firebase.initializeApp(firebaseConfig);
+  firebase.firestore();
+  console.log('fb initialized');
+} catch (err) {
+  console.log('Error initializing fb');
+}
 
 export default firebase;
