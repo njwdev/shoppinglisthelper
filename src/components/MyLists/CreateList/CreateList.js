@@ -20,7 +20,7 @@ class CreateList extends Component {
   onSubmitHandler = e => {
     e.preventDefault();
     this.props.createList(this.state);
-    console.log('submit pressed', this.state);
+    this.props.history.push('/mylists');
   };
 
   render() {

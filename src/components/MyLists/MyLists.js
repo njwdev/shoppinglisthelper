@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PageContainer from '../layout/PageContainer';
 import myListsStyles from './myListsStyles';
@@ -25,16 +26,12 @@ class MyLists extends Component {
             </Typography>
             <Grid item />
             {shoppingList &&
-              shoppingList.map(data => {
+              shoppingList.map(list => {
                 return (
-                  <Grid key={data.createdOn} xs={12} item>
-                    <Paper
-                      spacing={10}
-                      href="/list"
-                      style={{ border: '2px solid #f50057' }}
-                    >
-                      <a
-                        href="/list"
+                  <Grid key={list.createdOn} xs={12} item>
+                    <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
+                      <Link
+                        to={'/list/' + list.id}
                         style={{ textDecoration: 'none', color: 'inherit' }}
                       >
                         <Typography
@@ -42,15 +39,15 @@ class MyLists extends Component {
                           variant="h6"
                           style={{ padding: 10 }}
                         >
-                          {data.listname}
+                          {list.listname}
                         </Typography>
                         <Divider />
                         <List>
-                          <ListItem> Shared with: {data.sharedWith}</ListItem>
-                          <ListItem> Description {data.description} </ListItem>
-                          <ListItem> Author: {data.authorId}</ListItem>
+                          <ListItem> Shared with: {list.sharedWith}</ListItem>
+                          <ListItem> Description {list.description} </ListItem>
+                          <ListItem> Author: {list.authorId}</ListItem>
                         </List>
-                      </a>
+                      </Link>
                     </Paper>
                   </Grid>
                 );

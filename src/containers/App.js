@@ -26,6 +26,7 @@ const App = () => (
         <Route exact path={ROUTES.MYLISTS} component={MyLists} />
         <Route exact path={ROUTES.LIST} component={ShoppingList} />
         <Route exact path={ROUTES.CREATELIST} component={CreateList} />
+
         <Route exact path={ROUTES.ACCOUNT} component={Account} />
         <Route exact path="*" component={NotFound} />
       </Switch>

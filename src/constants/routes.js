@@ -7,3 +7,4 @@ export const ACCOUNT = '/account';
 export const MYLISTS = '/mylists';
 export const LIST = '/list/:id';
 export const CREATELIST = '/createlist';
+export const EDITABLETABLE = '/editabletable';
