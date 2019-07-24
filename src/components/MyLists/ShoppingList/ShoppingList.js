@@ -1,78 +1,86 @@
 import React, { Component } from 'react';
-import PageContainer from '../../layout/PageContainer';
-import MaterialTable from 'material-table';
 import { connect } from 'react-redux';
+import PageContainer from '../../layout/PageContainer';
+import ShoppingListStyles from './ShoppingListStyles';
+import { withStyles } from '@material-ui/core';
+import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 
 class ShoppingList extends Component {
   render() {
-    const { shoppingList } = this.props;
-    console.log(shoppingList[0]);
-    console.log(this.props);
-
-    const id = this.props.match.params.id;
-    return (
-      <PageContainer>
-        <MaterialTable
-          title={id + ': ' + shoppingList[0].title}
-          options={{
-            actionsCellStyle: {
-              backgroundColor: null,
-              border: undefined,
-            },
-
-            padding: 'dense',
-            search: false,
-          }}
-          columns={[
-            { title: 'Item', cellStyle: { cursor: 'default' }, field: 'item' },
-            {
-              title: 'Quantity',
-              cellStyle: { cursor: 'default' },
-              field: 'quantity',
-            },
-          ]}
-          data={shoppingList[0].items}
-          editable={{
-            onRowAdd: newData =>
-              new Promise(resolve => {
-                setTimeout(() => {
-                  resolve();
-                  // const data = [...state.data];
-                  // data.push(newData);
-                  // setState({ ...state, data });
-                }, 600);
-              }),
-          }}
-          actions={[
-            {
-              icon: 'done',
-              tooltip: 'Purchased item',
-              onClick: (event, rowData) =>
-                alert('You clicked on ' + rowData.item),
-            },
-            {
-              icon: 'warning',
-              tooltip: 'There was a problem',
-              onClick: (event, rowData) =>
-                alert('You clicked on ' + rowData.item),
-            },
-            {
-              icon: 'delete',
-              tooltip: 'Delete item',
-              onClick: (event, rowData) =>
-                alert('You clicked on ' + rowData.item),
-            },
-          ]}
-        />
-      </PageContainer>
-    );
+    const { classes, shoppingList } = this.props;
+    if (shoppingList) {
+      return (
+        <PageContainer>
+          <div className={classes.root}>
+            <Grid container justify="center" spacing={2}>
+              <Grid xs={12} item>
+                <Typography variant="h4">{shoppingList.listname}</Typography>
+              </Grid>
+              <Divider />
+              <Grid xs={12} item>
+                <Typography variant="subtitle1">
+                  {shoppingList.description}
+                </Typography>
+              </Grid>
+              <Grid item />
+              {shoppingList.items.map(list => {
+                return (
+                  <Grid key={list.item + list.createdOn} xs={12} item>
+                    <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
+                      <List>
+                        <ListItem>
+                          Item: {''}
+                          {list.item.charAt(0).toUpperCase() +
+                            list.item.slice(1)}
+                        </ListItem>
+                        <ListItem key={list.listname}>
+                          {' '}
+                          Quantity: {list.quantity}{' '}
+                        </ListItem>
+                      </List>
+                    </Paper>
+                  </Grid>
+                );
+              })}
+            </Grid>
+            <div>
+              <Fab href="/createlist" style={{ marginTop: 10 }}>
+                <i className="material-icons">add</i>
+              </Fab>
+            </div>
+          </div>
+        </PageContainer>
+      );
+    } else {
+      return (
+        <PageContainer>
+          <div>
+            <p> Loading...</p>
+          </div>
+        </PageContainer>
+      );
+    }
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const id = ownProps.match.params.id;
+  const lists = state.firestore.data.lists;
+  const list = lists ? lists[id] : null;
   return {
-    shoppingList: state.shoppingList.lists,
+    shoppingList: list,
   };
 };
 
-export default connect(mapStateToProps)(ShoppingList);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: 'lists' }]),
+)(withStyles(ShoppingListStyles)(ShoppingList));
