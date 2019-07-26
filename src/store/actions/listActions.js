@@ -8,7 +8,7 @@ export const createList = list => {
       .add({
         ...list,
         createdOn: new Date(),
-        authorId: 'Samwise',
+        authorId: 'Frodo',
       })
       .then(() => {
         dispatch({ type: actionTypes.CREATE_NEW_LIST, list });
@@ -20,18 +20,17 @@ export const createList = list => {
   };
 };
 
-export const addItemToList = list => {
+export const addItemToList = items => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     firestore
       .collection('lists')
       .add({
-        ...list.items,
-        test: test,
+        ...items,
       })
       .then(() => {
-        dispatch({ type: actionTypes.ADD_ITEM_TO_LIST, list });
-        console.log('inside add to list');
+        dispatch({ type: actionTypes.ADD_ITEM_TO_LIST, items });
+        console.log('inside add to list' + items);
       })
       .catch(err => {
         dispatch({ type: 'ADD_ITEM_TO_LIST_ERROR', err });
