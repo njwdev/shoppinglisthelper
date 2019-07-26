@@ -19,8 +19,11 @@ import { addItemToList } from '../../../store/actions/listActions';
 class ShoppingList extends Component {
   state = {
     addButtonPressed: false,
-    item: '',
-    quantity: '',
+    items: {
+      item: '',
+      quantity: '',
+      id: '',
+    },
   };
 
   onChangeHandler = e => {
@@ -29,8 +32,7 @@ class ShoppingList extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    this.props.createList(this.state);
-    this.props.history.push('/mylists');
+    this.props.addItemToList(this.state);
   };
 
   onAddButtonPressed = () => {
@@ -39,7 +41,11 @@ class ShoppingList extends Component {
 
   render() {
     const { classes, shoppingList } = this.props;
-
+    // console.log(
+    //   Object.keys(shoppingList.items).map((key, index) => {
+    //     return shoppingList[key].item;
+    //   }),
+    // );
     if (shoppingList) {
       return (
         <PageContainer>
@@ -56,9 +62,9 @@ class ShoppingList extends Component {
               </Grid>
               <Grid item />
               {shoppingList.items &&
-                shoppingList.items.map(list => {
+                Object.keys(shoppingList.items).map((key, index) => {
                   return (
-                    <Grid key={list.item + list.createdOn} xs={12} item>
+                    <Grid xs={12} item key={shoppingList.items[key].id}>
                       <Paper
                         spacing={10}
                         style={{ border: '2px solid #f50057' }}
@@ -66,12 +72,11 @@ class ShoppingList extends Component {
                         <List>
                           <ListItem>
                             Item: {''}
-                            {list.item.charAt(0).toUpperCase() +
-                              list.item.slice(1)}
+                            {shoppingList.items[key].item}
                           </ListItem>
-                          <ListItem key={list.listname}>
+                          <ListItem>
                             {' '}
-                            Quantity: {list.quantity}{' '}
+                            Quantity: {shoppingList.items[key].quantity}
                           </ListItem>
                         </List>
                       </Paper>
@@ -91,7 +96,7 @@ class ShoppingList extends Component {
               <Grid xs={12} item>
                 <Grid xs={12} item>
                   <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
-                    <form>
+                    <form onSubmit={this.onSubmitHandler}>
                       <List dense>
                         <ListItem dense>
                           <TextField

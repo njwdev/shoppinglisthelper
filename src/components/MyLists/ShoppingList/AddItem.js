@@ -23,6 +23,8 @@ class AddItem extends Component {
     e.preventDefault();
     this.props.addItemToList(this.state);
   };
+
+  
   render() {
     console.log(this.state);
     const { classes, list } = this.props;
