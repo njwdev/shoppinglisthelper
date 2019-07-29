@@ -28,7 +28,7 @@ class MyLists extends Component {
             {shoppingList &&
               shoppingList.map(list => {
                 return (
-                  <Grid key={list.createdOn} xs={12} item>
+                  <Grid key={list.id} xs={12} item>
                     <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
                       <Link
                         to={'/list/' + list.id}

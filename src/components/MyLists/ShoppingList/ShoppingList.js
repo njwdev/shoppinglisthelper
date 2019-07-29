@@ -19,11 +19,9 @@ import { addItemToList } from '../../../store/actions/listActions';
 class ShoppingList extends Component {
   state = {
     addButtonPressed: false,
-    items: {
-      item: '',
-      quantity: '',
-      id: '',
-    },
+    item: '',
+    quantity: '',
+    id: '',
   };
 
   onChangeHandler = e => {
@@ -32,7 +30,7 @@ class ShoppingList extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    this.props.addItemToList(this.state);
+    this.props.addItemToList(this.props.shoppingList.items + this.state);
   };
 
   onAddButtonPressed = () => {
@@ -63,6 +61,7 @@ class ShoppingList extends Component {
               <Grid item />
               {shoppingList.items &&
                 Object.keys(shoppingList.items).map((key, index) => {
+                  console.log('LOOK' + Object.keys(shoppingList.items[key]));
                   return (
                     <Grid xs={12} item key={shoppingList.items[key].id}>
                       <Paper
@@ -75,7 +74,6 @@ class ShoppingList extends Component {
                             {shoppingList.items[key].item}
                           </ListItem>
                           <ListItem>
-                            {' '}
                             Quantity: {shoppingList.items[key].quantity}
                           </ListItem>
                         </List>
@@ -137,6 +135,7 @@ class ShoppingList extends Component {
             </div>
           ) : // <AddItem list={shoppingList.listname} />
           null}
+          {console.log(this.state)}
         </PageContainer>
       );
     } else {
@@ -171,5 +170,9 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  firestoreConnect([{ collection: 'lists' }]),
+  firestoreConnect([
+    {
+      collection: 'lists',
+    },
+  ]),
 )(withStyles(ShoppingListStyles)(ShoppingList));
