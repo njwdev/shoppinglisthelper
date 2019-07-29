@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import navbarStyles from './styles/navbarStyles';
+import NavbarStyles from './styles/navbarStyles';
 
 const data = (text, link) => ({ text, link });
 const nonAuthButtons = [
@@ -59,4 +59,4 @@ const Navbar = props => {
   );
 };
 
-export default withStyles(navbarStyles)(Navbar);
+export default withStyles(NavbarStyles)(Navbar);
