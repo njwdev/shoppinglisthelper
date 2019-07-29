@@ -20,17 +20,20 @@ export const createList = list => {
   };
 };
 
-export const addItemToList = items => {
+export const addItemToList = item => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     firestore
       .collection('lists')
+      .doc()
+      .collection('items')
       .add({
-        ...items,
+        item: 'test',
+        quantity: 'test',
       })
       .then(() => {
-        dispatch({ type: actionTypes.ADD_ITEM_TO_LIST, items });
-        console.log('inside add to list' + items);
+        dispatch({ type: actionTypes.ADD_ITEM_TO_LIST, item });
+        console.log('In add item to list');
       })
       .catch(err => {
         dispatch({ type: 'ADD_ITEM_TO_LIST_ERROR', err });
