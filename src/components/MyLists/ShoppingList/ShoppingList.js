@@ -22,6 +22,7 @@ class ShoppingList extends Component {
     item: '',
     quantity: '',
     id: '',
+    listId: this.props.match.params.id,
   };
 
   onChangeHandler = e => {
@@ -30,7 +31,11 @@ class ShoppingList extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    this.props.addItemToList(this.props.shoppingList.items + this.state);
+    this.props.addItemToList(this.state, this.state.listId);
+    this.setState({
+      addButtonPressed: !this.state.addButtonPressed,
+      // id: get firebase parent id,
+    });
   };
 
   onAddButtonPressed = () => {
@@ -39,6 +44,7 @@ class ShoppingList extends Component {
 
   render() {
     const { classes, shoppingList } = this.props;
+
     // console.log(
     //   Object.keys(shoppingList.items).map((key, index) => {
     //     return shoppingList[key].item;
@@ -161,7 +167,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addItemToList: item => dispatch(addItemToList(item)),
+    addItemToList: (item, listId) => dispatch(addItemToList(item, listId)),
   };
 };
 
