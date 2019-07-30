@@ -20,20 +20,19 @@ export const createList = list => {
   };
 };
 
-export const addItemToList = item => {
+export const addItemToList = (item, listId) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
     firestore
       .collection('lists')
-      .doc()
+      .doc(listId)
       .collection('items')
       .add({
-        item: 'test',
-        quantity: 'test',
+        ...item,
       })
-      .then(() => {
+      .then(docRef => {
         dispatch({ type: actionTypes.ADD_ITEM_TO_LIST, item });
-        console.log('In add item to list');
+        console.log('In add item to list', docRef);
       })
       .catch(err => {
         dispatch({ type: 'ADD_ITEM_TO_LIST_ERROR', err });

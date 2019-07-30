@@ -12,8 +12,8 @@ const shoppingListReducer = (state = initialState, action) => {
     case 'CREATE_LIST_ERROR':
       console.log('create list error', action.err);
       return state;
-    case 'ADD_ITEM_TO_LIST':
-      console.log('Added item to List', action.list);
+    case actionTypes.ADD_ITEM_TO_LIST:
+      console.log('Added item to List', action.item);
       return state;
     case 'ADD_ITEM_TO_LIST_ERROR':
       console.log('Add item to list error', action.err);
