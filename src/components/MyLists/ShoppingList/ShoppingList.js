@@ -30,12 +30,12 @@ class ShoppingList extends Component {
   };
 
   onSubmitHandler = e => {
-    e.preventDefault();
     this.props.addItemToList(this.state, this.state.listId);
     this.setState({
       addButtonPressed: !this.state.addButtonPressed,
       // id: get firebase parent id,
     });
+    this.props.history.push(`/list/${this.state.listId}`);
   };
 
   onAddButtonPressed = () => {
@@ -43,14 +43,9 @@ class ShoppingList extends Component {
   };
 
   render() {
-    const { classes, shoppingList } = this.props;
-
-    // console.log(
-    //   Object.keys(shoppingList.items).map((key, index) => {
-    //     return shoppingList[key].item;
-    //   }),
-    // );
-    if (shoppingList) {
+    const { classes, shoppingList, items } = this.props;
+    console.log(items);
+    if (shoppingList && items) {
       return (
         <PageContainer>
           <div className={classes.root}>
@@ -65,11 +60,10 @@ class ShoppingList extends Component {
                 </Typography>
               </Grid>
               <Grid item />
-              {shoppingList.items &&
-                Object.keys(shoppingList.items).map((key, index) => {
-                  console.log('LOOK' + Object.keys(shoppingList.items[key]));
+              {items[0].items &&
+                items[0].items.map((item, index) => {
                   return (
-                    <Grid xs={12} item key={shoppingList.items[key].id}>
+                    <Grid xs={12} item key={item.item}>
                       <Paper
                         spacing={10}
                         style={{ border: '2px solid #f50057' }}
@@ -77,11 +71,9 @@ class ShoppingList extends Component {
                         <List>
                           <ListItem>
                             Item: {''}
-                            {shoppingList.items[key].item}
+                            {item.item}
                           </ListItem>
-                          <ListItem>
-                            Quantity: {shoppingList.items[key].quantity}
-                          </ListItem>
+                          <ListItem>Quantity: {item.quantity}</ListItem>
                         </List>
                       </Paper>
                     </Grid>
@@ -160,8 +152,11 @@ const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
   const lists = state.firestore.data.lists;
   const list = lists ? lists[id] : null;
+  console.log(state);
+  console.log(ownProps);
   return {
     shoppingList: list,
+    items: state.firestore.ordered.lists,
   };
 };
 
@@ -176,9 +171,13 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps,
   ),
-  firestoreConnect([
-    {
-      collection: 'lists',
-    },
-  ]),
+  firestoreConnect(props => {
+    return [
+      {
+        collection: 'lists',
+        doc: props.match.params.id,
+        subcollections: [{ collection: 'items' }],
+      },
+    ];
+  }),
 )(withStyles(ShoppingListStyles)(ShoppingList));
