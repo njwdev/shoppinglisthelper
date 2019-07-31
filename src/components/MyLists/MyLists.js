@@ -16,7 +16,7 @@ import { compose } from 'redux';
 
 class MyLists extends Component {
   render() {
-    const { classes, shoppingList } = this.props;
+    const { classes, lists } = this.props;
     return (
       <PageContainer>
         <div className={classes.root}>
@@ -25,8 +25,8 @@ class MyLists extends Component {
               My Lists
             </Typography>
             <Grid item />
-            {shoppingList &&
-              shoppingList.map(list => {
+            {lists &&
+              lists.map(list => {
                 return (
                   <Grid key={list.id} xs={12} item>
                     <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
@@ -67,7 +67,7 @@ class MyLists extends Component {
 const mapStateToProps = state => {
   console.log(state);
   return {
-    shoppingList: state.firestore.ordered.lists,
+    lists: state.firestore.ordered.lists,
   };
 };
 
