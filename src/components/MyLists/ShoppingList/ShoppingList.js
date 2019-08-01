@@ -15,6 +15,7 @@ import { compose } from 'redux';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { addItemToList } from '../../../store/actions/listActions';
+import Spinner from '../../layout/UI/Spinner';
 
 class ShoppingList extends Component {
   state = {
@@ -22,7 +23,7 @@ class ShoppingList extends Component {
     item: '',
     quantity: '',
     id: '',
-    listId: this.props.match.params.id,
+    loading: false,
   };
 
   onChangeHandler = e => {
@@ -30,12 +31,12 @@ class ShoppingList extends Component {
   };
 
   onSubmitHandler = e => {
-    this.props.addItemToList(this.state, this.state.listId);
+    const listId = this.props.match.params.id;
+    this.props.addItemToList(this.state, listId);
     this.setState({
       addButtonPressed: !this.state.addButtonPressed,
-      // id: get firebase parent id,
     });
-    this.props.history.push(`/list/${this.state.listId}`);
+    this.props.history.push(`/list/${listId}`);
   };
 
   onAddButtonPressed = () => {
@@ -44,107 +45,98 @@ class ShoppingList extends Component {
 
   render() {
     const { classes, shoppingList, items } = this.props;
-    console.log(items);
-    if (shoppingList && items) {
-      return (
-        <PageContainer>
-          <div className={classes.root}>
-            <Grid container justify="center" spacing={2}>
-              <Grid xs={12} item>
-                <Typography variant="h4">{shoppingList.listname}</Typography>
-              </Grid>
-              <Divider />
-              <Grid xs={12} item>
-                <Typography variant="subtitle1">
-                  {shoppingList.description}
-                </Typography>
-              </Grid>
-              <Grid item />
-              {items[0].items &&
-                items[0].items.map((item, index) => {
-                  return (
-                    <Grid xs={12} item key={item.item}>
-                      <Paper
-                        spacing={10}
-                        style={{ border: '2px solid #f50057' }}
-                      >
-                        <List>
-                          <ListItem>
-                            Item: {''}
-                            {item.item}
-                          </ListItem>
-                          <ListItem>Quantity: {item.quantity}</ListItem>
-                        </List>
-                      </Paper>
-                    </Grid>
-                  );
-                })}
-            </Grid>
 
-            <div>
-              <Fab onClick={this.onAddButtonPressed} style={{ margin: '10px' }}>
-                <i className="material-icons">add</i>
-              </Fab>
-            </div>
-          </div>
-          {this.state.addButtonPressed ? (
-            <div>
-              <Grid xs={12} item>
-                <Grid xs={12} item>
-                  <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
-                    <form onSubmit={this.onSubmitHandler}>
-                      <List dense>
-                        <ListItem dense>
-                          <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="item"
-                            label="Item"
-                            type="text"
-                            onChange={this.onChangeHandler}
-                          />
+    return !items ? (
+      <PageContainer>
+        <Spinner />
+      </PageContainer>
+    ) : (
+      <PageContainer>
+        <div className={classes.root}>
+          <Grid container justify="center" spacing={2}>
+            <Grid xs={12} item>
+              <Typography variant="h4">{shoppingList.listname}</Typography>
+            </Grid>
+            <Divider />
+            <Grid xs={12} item>
+              <Typography variant="subtitle1">
+                {shoppingList.description}
+              </Typography>
+            </Grid>
+            <Grid item />
+            {items &&
+              items[0].items.map((item, index) => {
+                return (
+                  <Grid xs={12} item key={item.createdOn}>
+                    <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
+                      <List>
+                        <ListItem>
+                          Item: {''}
+                          {item.item}
                         </ListItem>
-                        <ListItem dense>
-                          <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="quantity"
-                            label="Quantity"
-                            type="text"
-                            onChange={this.onChangeHandler}
-                          />
-                        </ListItem>
+                        <ListItem>Quantity: {item.quantity}</ListItem>
                       </List>
-                      <Button
-                        type="submit"
-                        style={{ textTransform: 'capitalize' }}
-                        fullWidth
-                      >
-                        Add item
-                      </Button>
-                    </form>
-                  </Paper>
-                </Grid>
-              </Grid>
-            </div>
-          ) : // <AddItem list={shoppingList.listname} />
-          null}
-          {console.log(this.state)}
-        </PageContainer>
-      );
-    } else {
-      return (
-        <PageContainer>
+                    </Paper>
+                  </Grid>
+                );
+              })}
+          </Grid>
+
           <div>
-            <p> Loading...</p>
+            <Fab onClick={this.onAddButtonPressed} style={{ margin: '10px' }}>
+              <i className="material-icons">add</i>
+            </Fab>
           </div>
-        </PageContainer>
-      );
-    }
+        </div>
+        {this.state.addButtonPressed ? (
+          <div>
+            <Grid xs={12} item>
+              <Grid xs={12} item>
+                <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
+                  <form onSubmit={this.onSubmitHandler}>
+                    <List dense>
+                      <ListItem dense>
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          name="item"
+                          label="Item"
+                          type="text"
+                          onChange={this.onChangeHandler}
+                        />
+                      </ListItem>
+                      <ListItem dense>
+                        <TextField
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          name="quantity"
+                          label="Quantity"
+                          type="text"
+                          onChange={this.onChangeHandler}
+                        />
+                      </ListItem>
+                    </List>
+                    <Button
+                      type="submit"
+                      style={{ textTransform: 'capitalize' }}
+                      fullWidth
+                    >
+                      Add item
+                    </Button>
+                  </form>
+                </Paper>
+              </Grid>
+            </Grid>
+          </div>
+        ) : // <AddItem list={shoppingList.listname} />
+        null}
+        {console.log(this.state)}
+      </PageContainer>
+    );
   }
 }
 
@@ -152,8 +144,7 @@ const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
   const lists = state.firestore.data.lists;
   const list = lists ? lists[id] : null;
-  console.log(state);
-  console.log(ownProps);
+
   return {
     shoppingList: list,
     items: state.firestore.ordered.lists,

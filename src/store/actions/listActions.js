@@ -29,6 +29,7 @@ export const addItemToList = (item, listId) => {
       .collection('items')
       .add({
         ...item,
+        createdOn: new Date(),
       })
       .then(docRef => {
         dispatch({ type: actionTypes.ADD_ITEM_TO_LIST, item });
