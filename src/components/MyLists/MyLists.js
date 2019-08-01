@@ -13,11 +13,14 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import Spinner from '../layout/UI/Spinner';
 
 class MyLists extends Component {
   render() {
     const { classes, lists } = this.props;
-    return (
+    return !lists ? (
+      <Spinner />
+    ) : (
       <PageContainer>
         <div className={classes.root}>
           <Grid container justify="center" spacing={2}>
