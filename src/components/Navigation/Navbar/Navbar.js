@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import NavbarStyles from './styles/navbarStyles';
+import NavbarStyles from './styles/NavbarStyles';
 import UserAccountButton from '../../layout/Buttons/UserAccountButton';
 
 const data = (text, link) => ({ text, link });

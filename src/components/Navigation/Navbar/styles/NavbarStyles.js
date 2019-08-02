@@ -1,4 +1,4 @@
-const navbarStyles = theme => ({
+const NavbarStyles = theme => ({
   appBar: {
     position: 'relative',
     backgroundColor: theme.palette.secondary.main,
@@ -15,4 +15,4 @@ const navbarStyles = theme => ({
   },
 });
 
-export default navbarStyles;
+export default NavbarStyles;
