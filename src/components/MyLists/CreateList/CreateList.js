@@ -24,6 +24,14 @@ class CreateList extends Component {
   };
 
   render() {
+    const data = (name, label, type, required, multiline) => {
+      return { name, label, type, required, multiline };
+    };
+    const items = [
+      data('listname', 'List Name', 'text', true, false),
+      data('description', 'Description', 'description', false, true),
+      data('sharedWith', 'Shared With', 'text', false, false),
+    ];
     return (
       <PageContainer>
         <Typography component="h1" variant="h5" style={{ display: 'block' }}>
@@ -31,35 +39,19 @@ class CreateList extends Component {
         </Typography>
 
         <form onSubmit={this.onSubmitHandler}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="listname"
-            label="List Name"
-            type="text"
-            onChange={this.onChangeHandler}
-          />
-          <TextField
-            multiline
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="description"
-            label="Description"
-            type="description"
-            onChange={this.onChangeHandler}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            name="sharedWith"
-            label="Shared with"
-            type="text"
-            onChange={this.onChangeHandler}
-          />
+          {items.map(item => (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required={item.required}
+              multiline={item.multiline}
+              fullWidth
+              name={item.name}
+              label={item.label}
+              type={item.text}
+              onChange={this.onChangeHandler}
+            />
+          ))}
 
           {/* function to create timestamp onsubmit needed here */}
 

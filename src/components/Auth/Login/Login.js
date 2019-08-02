@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PageContainer from '../../layout/PageContainer';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField/';
 import Button from '@material-ui/core/Button';
+import PageContainer from '../../layout/PageContainer';
 
 class Login extends Component {
   state = {
@@ -16,10 +16,17 @@ class Login extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   render() {
+    const data = (name, label, type) => {
+      return { name, label, type };
+    };
+    const items = [
+      data('email', 'Email', 'email'),
+      data('password', 'Password', 'password'),
+    ];
     return (
       <PageContainer>
         <Typography component="h1" variant="h5" style={{ display: 'block' }}>
@@ -27,26 +34,18 @@ class Login extends Component {
         </Typography>
 
         <form onSubmit={this.onSubmitHandler}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="email"
-            label="Email"
-            type="email"
-            onChange={this.onChangeHandler}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            onChange={this.onChangeHandler}
-          />
+          {items.map(item => (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name={item.name}
+              label={item.label}
+              type={item.type}
+              onChange={this.onChangeHandler}
+            />
+          ))}
           <Button
             type="submit"
             style={{ textTransform: 'capitalize' }}

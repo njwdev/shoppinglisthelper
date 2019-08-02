@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PageContainer from '../layout/PageContainer';
-import myListsStyles from './myListsStyles';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
 import { withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
+import PageContainer from '../layout/PageContainer';
 import Spinner from '../layout/UI/Spinner';
 import ListOverview from '../MyLists/ListOverview';
+// styles
+import myListsStyles from './styles';
 
 class MyLists extends Component {
   render() {
@@ -49,8 +51,13 @@ class MyLists extends Component {
   }
 }
 
+MyLists.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
+  lists: PropTypes.instanceOf(Array).isRequired,
+};
+
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
   return {
     lists: state.firestore.ordered.lists,
   };

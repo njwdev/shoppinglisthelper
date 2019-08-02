@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import appStyles from './appStyles';
+import appStyles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import Navbar from '../components/Navigation/Navbar/Navbar';
 import * as ROUTES from '../constants/routes';
