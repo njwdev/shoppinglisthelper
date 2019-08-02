@@ -1,9 +1,11 @@
 import React from 'react';
-import PageContainer from '../layout/PageContainer';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import landingStyles from './LandingStyles';
+import PageContainer from '../layout/PageContainer';
+// styles
+import landingStyles from './styles';
 
 const Landing = props => {
   const { classes } = props;
@@ -32,6 +34,10 @@ const Landing = props => {
       </Button>
     </PageContainer>
   );
+};
+
+Landing.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
 };
 
 export default withStyles(landingStyles)(Landing);

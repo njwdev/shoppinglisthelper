@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import NavbarStyles from './styles/NavbarStyles';
 import UserAccountButton from '../../layout/Buttons/UserAccountButton';
+// styles
+import NavbarStyles from './styles';
 
 const data = (text, link) => ({ text, link });
 const nonAuthButtons = [
@@ -42,6 +44,10 @@ const Navbar = props => {
       </AppBar>
     </div>
   );
+};
+
+Navbar.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
 };
 
 export default withStyles(NavbarStyles)(Navbar);

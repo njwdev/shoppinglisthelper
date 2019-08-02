@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const UserAccountButton = props => (
+const UserAccountButton = ({ username }) => (
   <button
     style={{
       width: '40px',
@@ -17,8 +18,12 @@ const UserAccountButton = props => (
       margin: '0 2px',
     }}
   >
-    {props.username}
+    {username}
   </button>
 );
+
+UserAccountButton.propTypes = {
+  username: PropTypes.string.isRequired,
+};
 
 export default UserAccountButton;
