@@ -4,6 +4,7 @@ import PageContainer from '../../layout/PageContainer';
 import ShoppingListStyles from './ShoppingListStyles';
 import { withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
+import { Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -43,77 +44,79 @@ class ShoppingList extends Component {
   };
 
   render() {
-    const { classes, shoppingList, items } = this.props;
+    const { classes, items } = this.props;
 
-    return !(items && shoppingList) ? (
-      <PageContainer>
-        <Spinner />
-      </PageContainer>
-    ) : (
-      <PageContainer>
-        <div className={classes.root}>
-          <Grid container justify="center" spacing={2}>
-            <Grid xs={12} item>
-              <Typography variant="h4">
-                {shoppingList.listname}List name
-              </Typography>
-            </Grid>
-            <Divider />
-            <Grid xs={12} item>
-              <Typography variant="subtitle1">
-                {shoppingList.description} List description
-              </Typography>
-            </Grid>
-            <Grid item />
+    if (items === null) {
+      return <Redirect to="/mylists" />;
+    } else
+      return !items ? (
+        <PageContainer>
+          <Spinner />
+        </PageContainer>
+      ) : (
+        <PageContainer>
+          <div className={classes.root}>
+            <Grid container justify="center" spacing={2}>
+              <Grid xs={12} item>
+                <Typography variant="h4">{items.listname}</Typography>
+              </Grid>
+              <Divider />
+              <Grid xs={12} item>
+                <Typography variant="subtitle1">{items.description}</Typography>
+              </Grid>
+              <Grid item />
 
-            {shoppingList &&
-              items &&
-              items[0].items.map((item, index) => {
-                return (
-                  <Grid xs={12} item key={item.createdOn}>
-                    <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
-                      <List>
-                        <ListItem>
-                          Item: {''}
-                          {item.item}
-                        </ListItem>
-                        <ListItem>Quantity: {item.quantity}</ListItem>
-                      </List>
-                    </Paper>
-                  </Grid>
-                );
-              })}
-          </Grid>
-          <div>
-            <Fab onClick={this.onAddButtonPressed} style={{ margin: '10px' }}>
-              <i className="material-icons">add</i>
-            </Fab>
+              {items.items &&
+                Object.entries(items.items).map((item, index) => {
+                  console.log(item);
+                  return (
+                    <Grid xs={12} item key={item[1].createdOn}>
+                      <Paper
+                        spacing={10}
+                        style={{ border: '2px solid #f50057' }}
+                      >
+                        <List>
+                          <ListItem>
+                            Item: {''}
+                            {item[1].item}
+                          </ListItem>
+                          <ListItem>Quantity: {item[1].quantity}</ListItem>
+                        </List>
+                      </Paper>
+                    </Grid>
+                  );
+                })}
+            </Grid>
+            <div>
+              <Fab onClick={this.onAddButtonPressed} style={{ margin: '10px' }}>
+                <i className="material-icons">add</i>
+              </Fab>
+            </div>
           </div>
-        </div>
-        {this.state.addButtonPressed ? (
-          <AddItem
-            onSubmit={this.onSubmitHandler}
-            onChange={this.onChangeHandler}
-          />
-        ) : null}
-      </PageContainer>
-    );
+          {this.state.addButtonPressed ? (
+            <AddItem
+              onSubmit={this.onSubmitHandler}
+              onChange={this.onChangeHandler}
+            />
+          ) : null}
+        </PageContainer>
+      );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
   const lists = state.firestore.data.lists;
-  const list = lists ? lists[id] : null;
+  const items = lists ? lists[id] : null;
   console.log(ownProps);
   console.log(state);
-  console.log(list);
+  console.log(items);
+  console.log(state.firestore.ordered.lists);
 
   // Only giving the items subcollection, not accessing main collection
 
   return {
-    shoppingList: list,
-    items: state.firestore.ordered.lists,
+    items,
   };
 };
 
