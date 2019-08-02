@@ -1,0 +1,42 @@
+{
+  "extends": "react-app",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "semi": 2,
+    "react/jsx-filename-extension": [1, {
+      "extensions": [".js", ".jsx"]
+    }],
+    "linebreak-style": 0,
+    "react/jsx-max-props-per-line": [true, {
+      "maximum": 3,
+      "when": "multiline"
+    }],
+    "object-curly-newline": ["error", {
+      "multiline": true
+    }],
+    "react/jsx-one-expression-per-line": [false],
+    "arrow-parens": ["error", "as-needed"],
+    "jsx-a11y/label-has-associated-control": ["error", {
+      "required": {
+        "some": ["nesting", "id"]
+      }
+    }],
+    "jsx-a11y/label-has-for": ["error", {
+      "required": {
+        "some": ["nesting", "id"]
+      }
+    }]
+  }
+}

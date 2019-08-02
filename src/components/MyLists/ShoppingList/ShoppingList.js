@@ -33,9 +33,7 @@ class ShoppingList extends Component {
   onSubmitHandler = e => {
     const listId = this.props.match.params.id;
     this.props.addItemToList(this.state, listId);
-    this.setState({
-      addButtonPressed: !this.state.addButtonPressed,
-    });
+    this.setState({ addButtonPressed: !this.state.addButtonPressed });
     this.props.history.push(`/list/${listId}`);
   };
 
@@ -115,15 +113,11 @@ const mapStateToProps = (state, ownProps) => {
 
   // Only giving the items subcollection, not accessing main collection
 
-  return {
-    items,
-  };
+  return { items };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {
-    addItemToList: (item, listId) => dispatch(addItemToList(item, listId)),
-  };
+  return {addItemToList: (item, listId) => dispatch(addItemToList(item, listId)),};
 };
 
 export default compose(

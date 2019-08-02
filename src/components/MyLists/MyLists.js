@@ -58,9 +58,7 @@ MyLists.propTypes = {
 
 const mapStateToProps = state => {
   // console.log(state);
-  return {
-    lists: state.firestore.ordered.lists,
-  };
+  return {lists: state.firestore.ordered.lists,};
 };
 
 export default compose(
