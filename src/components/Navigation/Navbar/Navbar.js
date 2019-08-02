@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NavbarStyles from './styles/navbarStyles';
+import UserAccountButton from '../../layout/Buttons/UserAccountButton';
 
 const data = (text, link) => ({ text, link });
 const nonAuthButtons = [
@@ -35,24 +36,8 @@ const Navbar = props => {
               {data.text}
             </Button>
           ))}
-          <button
-            style={{
-              width: '40px',
-              height: '40px',
-              lineHeight: '1.75',
-              textDecoration: 'none',
-              display: 'inline-block',
-              outline: 'none',
-              color: 'white',
-              backgroundColor: '#f50057',
-              borderRadius: '100%',
-              overflow: 'hidden',
-              textAlign: 'center',
-              margin: '0 2px',
-            }}
-          >
-            NN
-          </button>
+          <UserAccountButton username="AB" />
+          {/* update this to dynamic username */}
         </Toolbar>
       </AppBar>
     </div>

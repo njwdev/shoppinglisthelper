@@ -12,8 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import AddItem from './AddItem';
 import { addItemToList } from '../../../store/actions/listActions';
 import Spinner from '../../layout/UI/Spinner';
 
@@ -46,7 +45,7 @@ class ShoppingList extends Component {
   render() {
     const { classes, shoppingList, items } = this.props;
 
-    return !items ? (
+    return !(items && shoppingList) ? (
       <PageContainer>
         <Spinner />
       </PageContainer>
@@ -55,16 +54,20 @@ class ShoppingList extends Component {
         <div className={classes.root}>
           <Grid container justify="center" spacing={2}>
             <Grid xs={12} item>
-              <Typography variant="h4">{shoppingList.listname}</Typography>
+              <Typography variant="h4">
+                {shoppingList.listname}List name
+              </Typography>
             </Grid>
             <Divider />
             <Grid xs={12} item>
               <Typography variant="subtitle1">
-                {shoppingList.description}
+                {shoppingList.description} List description
               </Typography>
             </Grid>
             <Grid item />
-            {items &&
+
+            {shoppingList &&
+              items &&
               items[0].items.map((item, index) => {
                 return (
                   <Grid xs={12} item key={item.createdOn}>
@@ -81,7 +84,6 @@ class ShoppingList extends Component {
                 );
               })}
           </Grid>
-
           <div>
             <Fab onClick={this.onAddButtonPressed} style={{ margin: '10px' }}>
               <i className="material-icons">add</i>
@@ -89,52 +91,11 @@ class ShoppingList extends Component {
           </div>
         </div>
         {this.state.addButtonPressed ? (
-          <div>
-            <Grid xs={12} item>
-              <Grid xs={12} item>
-                <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
-                  <form onSubmit={this.onSubmitHandler}>
-                    <List dense>
-                      <ListItem dense>
-                        <TextField
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          fullWidth
-                          name="item"
-                          label="Item"
-                          type="text"
-                          onChange={this.onChangeHandler}
-                        />
-                      </ListItem>
-                      <ListItem dense>
-                        <TextField
-                          variant="outlined"
-                          margin="normal"
-                          required
-                          fullWidth
-                          name="quantity"
-                          label="Quantity"
-                          type="text"
-                          onChange={this.onChangeHandler}
-                        />
-                      </ListItem>
-                    </List>
-                    <Button
-                      type="submit"
-                      style={{ textTransform: 'capitalize' }}
-                      fullWidth
-                    >
-                      Add item
-                    </Button>
-                  </form>
-                </Paper>
-              </Grid>
-            </Grid>
-          </div>
-        ) : // <AddItem list={shoppingList.listname} />
-        null}
-        {console.log(this.state)}
+          <AddItem
+            onSubmit={this.onSubmitHandler}
+            onChange={this.onChangeHandler}
+          />
+        ) : null}
       </PageContainer>
     );
   }
@@ -144,6 +105,11 @@ const mapStateToProps = (state, ownProps) => {
   const id = ownProps.match.params.id;
   const lists = state.firestore.data.lists;
   const list = lists ? lists[id] : null;
+  console.log(ownProps);
+  console.log(state);
+  console.log(list);
+
+  // Only giving the items subcollection, not accessing main collection
 
   return {
     shoppingList: list,
