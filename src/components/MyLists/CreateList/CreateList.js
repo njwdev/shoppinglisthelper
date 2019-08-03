@@ -69,9 +69,7 @@ class CreateList extends Component {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    createList: list => dispatch(createList(list)),
-  };
+  return {createList: list => dispatch(createList(list)),};
 };
 
 export default connect(

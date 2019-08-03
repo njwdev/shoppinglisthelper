@@ -1,8 +1,6 @@
 import * as actionTypes from '../actionTypes/actionTypes';
 
-const initialState = {
-  lists: {},
-};
+const initialState = {lists: {},};
 
 const shoppingListReducer = (state = initialState, action) => {
   switch (action.type) {
