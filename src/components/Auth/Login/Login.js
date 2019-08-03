@@ -3,6 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField/';
 import Button from '@material-ui/core/Button';
 import PageContainer from '../../layout/PageContainer';
+import { connect } from 'react-redux';
+import { login } from '../../../store/actions/authActions';
 
 class Login extends Component {
   state = {
@@ -16,10 +18,11 @@ class Login extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    // console.log(this.state);
+    this.props.login(this.state);
   };
 
   render() {
+    const { authError } = this.props;
     const data = (name, label, type) => {
       return { name, label, type };
     };
@@ -54,9 +57,21 @@ class Login extends Component {
             Login
           </Button>
         </form>
+        <div> {authError ? <p> {authError} </p> : null} </div>
       </PageContainer>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return { authError: state.auth.authError };
+};
+
+const mapDispatchToProps = dispatch => {
+  return { login: credentials => dispatch(login(credentials)) };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Login);

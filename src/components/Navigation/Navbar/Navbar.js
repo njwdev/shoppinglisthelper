@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import UserAccountButton from '../../layout/Buttons/UserAccountButton';
 // styles
 import NavbarStyles from './styles';
+import { connect } from 'react-redux';
 
 const data = (text, link) => ({ text, link });
 const nonAuthButtons = [
@@ -24,7 +25,7 @@ const Navbar = props => {
         <Toolbar>
           <Typography className={classes.toolbarTitle}>
             <a href="/" className={classes.siteTitle}>
-              Shopping List Helper
+              Shopping List Helper{' '}
             </a>
           </Typography>
           {nonAuthButtons.map(data => (
@@ -46,8 +47,14 @@ const Navbar = props => {
   );
 };
 
-Navbar.propTypes = {
-  classes: PropTypes.shape({}).isRequired,
+const mapStateToProps = state => {
+  console.log(state);
+  return {};
 };
 
-export default withStyles(NavbarStyles)(Navbar);
+Navbar.propTypes = { classes: PropTypes.shape({}).isRequired };
+
+export default connect(
+  mapStateToProps,
+  null,
+)(withStyles(NavbarStyles)(Navbar));
