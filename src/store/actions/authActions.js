@@ -14,3 +14,17 @@ export const login = credentials => {
       });
   };
 };
+
+export const logout = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: actionTypes.LOGOUT_SUCCESS });
+      })
+      .catch(err => {
+        dispatch({ type: actionTypes.LOGOUT_ERROR, err });
+      });
+  };
+};

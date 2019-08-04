@@ -9,6 +9,7 @@ import UserAccountButton from '../../layout/Buttons/UserAccountButton';
 // styles
 import NavbarStyles from './styles';
 import { connect } from 'react-redux';
+import { logout } from '../../../store/actions/authActions';
 
 const data = (text, link) => ({ text, link });
 const nonAuthButtons = [
@@ -18,7 +19,8 @@ const nonAuthButtons = [
 ];
 
 const Navbar = props => {
-  const { classes } = props;
+  const { classes, auth } = props;
+  console.log(auth);
   return (
     <div>
       <AppBar className={classes.appBar}>
@@ -40,6 +42,7 @@ const Navbar = props => {
             </Button>
           ))}
           <UserAccountButton username="AB" />
+          {auth.uid ? <Button onClick={props.logout}>Logout</Button> : null}
           {/* update this to dynamic username */}
         </Toolbar>
       </AppBar>
@@ -49,12 +52,16 @@ const Navbar = props => {
 
 const mapStateToProps = state => {
   console.log(state);
-  return {};
+  return { auth: state.firebase.auth };
+};
+
+const mapDispatchToProps = dispatch => {
+  return { logout: () => dispatch(logout()) };
 };
 
 Navbar.propTypes = { classes: PropTypes.shape({}).isRequired };
 
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(withStyles(NavbarStyles)(Navbar));
