@@ -39,6 +39,7 @@ class Login extends Component {
         <form onSubmit={this.onSubmitHandler}>
           {items.map(item => (
             <TextField
+              key={item.name}
               variant="outlined"
               margin="normal"
               required

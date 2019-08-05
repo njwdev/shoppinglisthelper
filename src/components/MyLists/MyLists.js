@@ -10,15 +10,16 @@ import Typography from '@material-ui/core/Typography';
 import PageContainer from '../layout/PageContainer';
 import Spinner from '../layout/UI/Spinner';
 import ListOverview from '../MyLists/ListOverview';
+import { Redirect } from 'react-router-dom';
 // styles
 import myListsStyles from './styles';
 
 class MyLists extends Component {
   render() {
-    const { classes, lists } = this.props;
+    const { classes, lists, auth } = this.props;
     return !lists ? (
       <Spinner />
-    ) : (
+    ) : auth.uid ? (
       <PageContainer>
         <div className={classes.root}>
           <Grid container justify="center" spacing={2}>
@@ -47,6 +48,8 @@ class MyLists extends Component {
           </div>
         </div>
       </PageContainer>
+    ) : (
+      <Redirect to="/login" />
     );
   }
 }
@@ -58,7 +61,7 @@ MyLists.propTypes = {
 
 const mapStateToProps = state => {
   // console.log(state);
-  return {lists: state.firestore.ordered.lists,};
+  return { lists: state.firestore.ordered.lists, auth: state.firebase.auth };
 };
 
 export default compose(

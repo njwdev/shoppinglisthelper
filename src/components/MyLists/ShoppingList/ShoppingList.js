@@ -42,7 +42,7 @@ class ShoppingList extends Component {
   };
 
   render() {
-    const { classes, items } = this.props;
+    const { classes, items, auth } = this.props;
 
     if (items === null) {
       return <Redirect to="/mylists" />;
@@ -51,7 +51,7 @@ class ShoppingList extends Component {
         <PageContainer>
           <Spinner />
         </PageContainer>
-      ) : (
+      ) : auth.uid ? (
         <PageContainer>
           <div className={classes.root}>
             <Grid container justify="center" spacing={2}>
@@ -98,6 +98,8 @@ class ShoppingList extends Component {
             />
           ) : null}
         </PageContainer>
+      ) : (
+        <Redirect to="/login" />
       );
   }
 }
@@ -113,7 +115,7 @@ const mapStateToProps = (state, ownProps) => {
 
   // Only giving the items subcollection, not accessing main collection
 
-  return { items };
+  return { items, auth: state.firebase.auth };
 };
 
 const mapDispatchToProps = dispatch => {
