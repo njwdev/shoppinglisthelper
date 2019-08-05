@@ -28,3 +28,28 @@ export const logout = () => {
       });
   };
 };
+
+export const signUp = newUser => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .then(res => {
+        return firestore
+          .collection('users')
+          .doc(res.user.uid)
+          .set({
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+            initials: newUser.firstName[0] + newUser.lastName[0],
+          });
+      })
+      .then(() => {
+        dispatch({ type: actionTypes.SIGNUP_SUCCESS });
+      })
+      .catch(err => {
+        dispatch({ type: actionTypes.SIGNUP_ERROR, err });
+      });
+  };
+};

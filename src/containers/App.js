@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from '../components/Auth/PrivateRoute/PrivateRoute';
+import LoggedInRoute from '../components/Auth/LoggedInRoute/LoggedInRoute';
 import appStyles from './styles';
 import { withStyles } from '@material-ui/core/styles';
 import Navbar from '../components/Navigation/Navbar/Navbar';
@@ -27,9 +28,9 @@ const App = props => {
         <div>
           <Switch>
             <Route exact path={ROUTES.LANDING} component={Landing} />
-            <Route exact path={ROUTES.LOGIN} component={Login} />
+            <LoggedInRoute exact path={ROUTES.LOGIN} component={Login} />
             <Route exact path={ROUTES.ABOUT} component={About} />
-            <Route exact path={ROUTES.SIGNUP} component={SignUp} />
+            <LoggedInRoute exact path={ROUTES.SIGNUP} component={SignUp} />
             <PrivateRoute exact path={ROUTES.MYLISTS} component={MyLists} />
             <PrivateRoute exact path={ROUTES.LIST} component={ShoppingList} />
             <PrivateRoute

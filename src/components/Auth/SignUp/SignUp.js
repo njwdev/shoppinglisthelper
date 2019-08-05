@@ -3,10 +3,13 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField/';
 import Button from '@material-ui/core/Button';
 import PageContainer from '../../layout/PageContainer';
+import { connect } from 'react-redux';
+import { signUp } from '../../../store/actions/authActions';
 
 class SignUp extends Component {
   state = {
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
   };
@@ -17,15 +20,17 @@ class SignUp extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    // console.log(this.state);
+    this.props.signUp(this.state);
   };
 
   render() {
+    const { authError } = this.props;
     const data = (name, label, type) => {
       return { name, label, type };
     };
     const items = [
-      data('username', 'Username', 'text'),
+      data('firstName', 'First Name', 'text'),
+      data('lastName', 'Last Name', 'text'),
       data('email', 'Email', 'email'),
       data('password', 'Password', 'password'),
     ];
@@ -55,10 +60,22 @@ class SignUp extends Component {
           >
             Sign up
           </Button>
+          {authError ? <p>{authError}</p> : null}
         </form>
       </PageContainer>
     );
   }
 }
 
-export default SignUp;
+const mapStateToProps = state => {
+  return { authError: state.auth.authError };
+};
+
+const mapDispatchToProps = dispatch => {
+  return { signUp: newUser => dispatch(signUp(newUser)) };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SignUp);
