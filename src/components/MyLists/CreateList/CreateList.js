@@ -68,11 +68,15 @@ class CreateList extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return { auth: state.firebase.auth };
+};
+
 const mapDispatchToProps = dispatch => {
-  return {createList: list => dispatch(createList(list)),};
+  return { createList: list => dispatch(createList(list)) };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(CreateList);

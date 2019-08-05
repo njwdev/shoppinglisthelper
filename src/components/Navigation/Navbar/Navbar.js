@@ -6,7 +6,6 @@ import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import UserAccountButton from '../../layout/Buttons/UserAccountButton';
-// styles
 import NavbarStyles from './styles';
 import { connect } from 'react-redux';
 import { logout } from '../../../store/actions/authActions';
@@ -20,7 +19,6 @@ const nonAuthButtons = [
 
 const Navbar = props => {
   const { classes, auth } = props;
-  console.log(auth);
   return (
     <div>
       <AppBar className={classes.appBar}>
