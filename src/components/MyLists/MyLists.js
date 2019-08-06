@@ -60,7 +60,7 @@ MyLists.propTypes = {
 };
 
 const mapStateToProps = state => {
-  // console.log(state);
+  console.log(state.firebase.profile);
   return { lists: state.firestore.ordered.lists, auth: state.firebase.auth };
 };
 

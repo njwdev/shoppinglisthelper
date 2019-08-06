@@ -33,7 +33,7 @@ const theme = createMuiTheme({
     useNextVariants: true,
     fontFamily: 'Josefin Sans',
   },
-  button: {textTransform: 'capitalize',},
+  button: { textTransform: 'capitalize' },
 });
 
 // react-redux-firebase config
@@ -54,8 +54,7 @@ const store = createStore(
 
 const rrfProps = {
   firebase,
-  config: firebase,
-  rrfConfig: rrfConfig,
+  config: rrfConfig,
   dispatch: store.dispatch,
   createFirestoreInstance,
 };
