@@ -18,7 +18,7 @@ const nonAuthButtons = [
 ];
 
 const Navbar = props => {
-  const { classes, auth } = props;
+  const { classes, auth, profile } = props;
   return (
     <div>
       <AppBar className={classes.appBar}>
@@ -39,7 +39,7 @@ const Navbar = props => {
               {data.text}
             </Button>
           ))}
-          <UserAccountButton username="AB" />
+          <UserAccountButton username={profile.initials} />
           {auth.uid ? <Button onClick={props.logout}>Logout</Button> : null}
           {/* update this to dynamic username */}
         </Toolbar>
@@ -50,7 +50,7 @@ const Navbar = props => {
 
 const mapStateToProps = state => {
   console.log(state);
-  return { auth: state.firebase.auth };
+  return { auth: state.firebase.auth, profile: state.firebase.profile };
 };
 
 const mapDispatchToProps = dispatch => {
