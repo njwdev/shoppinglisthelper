@@ -30,14 +30,14 @@ const Navbar = props => {
                 classes={classes.navButton}
                 username={profile.initials}
               />
-              {/* <Button
+              <Button
                 className={classes.navButton}
                 onClick={props.logout}
                 variant="contained"
                 styles={{ textTransform: 'lowercase' }}
               >
                 Logout
-              </Button> */}
+              </Button>
             </Fragment>
           ) : (
             <SignedOutLinks classes={classes.navButton} />
