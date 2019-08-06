@@ -16,6 +16,7 @@ import { compose } from 'redux';
 import AddItem from './AddItem';
 import { addItemToList } from '../../../store/actions/listActions';
 import Spinner from '../../layout/UI/Spinner';
+import moment from 'moment';
 
 class ShoppingList extends Component {
   state = {
@@ -79,6 +80,10 @@ class ShoppingList extends Component {
                             {item[1].item}
                           </ListItem>
                           <ListItem>Quantity: {item[1].quantity}</ListItem>
+                          <ListItem>
+                            Added:{' '}
+                            {moment(item[1].createdOn.toDate()).calendar()}
+                          </ListItem>
                         </List>
                       </Paper>
                     </Grid>

@@ -9,7 +9,14 @@ import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
 
 const ListOverview = props => {
-  const { link, listname, sharedWith, description, authorId } = props;
+  const {
+    link,
+    listname,
+    sharedWith,
+    description,
+    authorId,
+    listAdded,
+  } = props;
   return (
     <Grid xs={12} item>
       <Paper spacing={10} style={{ border: '2px solid #f50057' }}>
@@ -25,6 +32,7 @@ const ListOverview = props => {
             <ListItem> Shared with: {sharedWith}</ListItem>
             <ListItem> Description {description} </ListItem>
             <ListItem> Author: {authorId}</ListItem>
+            <ListItem> List added: {listAdded}</ListItem>
           </List>
         </Link>
       </Paper>
@@ -38,6 +46,7 @@ ListOverview.propTypes = {
   sharedWith: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   authorId: PropTypes.string.isRequired,
+  listAdded: PropTypes.string.isRequired,
 };
 
 export default ListOverview;

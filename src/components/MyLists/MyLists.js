@@ -11,6 +11,7 @@ import PageContainer from '../layout/PageContainer';
 import Spinner from '../layout/UI/Spinner';
 import ListOverview from '../MyLists/ListOverview';
 import { Redirect } from 'react-router-dom';
+import moment from 'moment';
 // styles
 import myListsStyles from './styles';
 
@@ -36,7 +37,8 @@ class MyLists extends Component {
                     listname={list.listname}
                     sharedWith={list.sharedWith}
                     description={list.description}
-                    authorId={list.authorId}
+                    authorId={list.authorFirstName + ' ' + list.authorLastName}
+                    listAdded={moment(list.createdOn.toDate()).calendar()}
                   />
                 );
               })}

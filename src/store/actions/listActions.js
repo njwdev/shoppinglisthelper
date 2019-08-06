@@ -3,12 +3,16 @@ import * as actionTypes from '../actionTypes/actionTypes';
 export const createList = list => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
+    const profile = getState().firebase.profile;
+    const authorId = getState().firebase.auth.uid;
     firestore
       .collection('lists')
       .add({
         ...list,
         createdOn: new Date(),
-        authorId: 'Frodo',
+        authorFirstName: profile.firstName,
+        authorLastName: profile.lastName,
+        authorId: authorId,
       })
       .then(() => {
         dispatch({ type: actionTypes.CREATE_NEW_LIST, list });
