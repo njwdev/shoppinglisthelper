@@ -41,6 +41,7 @@ class CreateList extends Component {
         <form onSubmit={this.onSubmitHandler}>
           {items.map(item => (
             <TextField
+              key={item.name}
               variant="outlined"
               margin="normal"
               required={item.required}
@@ -52,8 +53,6 @@ class CreateList extends Component {
               onChange={this.onChangeHandler}
             />
           ))}
-
-          {/* function to create timestamp onsubmit needed here */}
 
           <Button
             type="submit"

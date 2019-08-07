@@ -5,10 +5,10 @@ import AppBar from '@material-ui/core/AppBar';
 
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 
 import NavbarStyles from './styles';
 import { connect } from 'react-redux';
+import UserAccountMenu from '../../layout/UI/UserAccountMenu';
 import { logout } from '../../../store/actions/authActions';
 import SignedInLinks from '../Navbar/SignedInLinks/SignedInLinks';
 import SignedOutLinks from '../Navbar/SignedOutLinks/SignedOutLinks';
@@ -26,18 +26,11 @@ const Navbar = props => {
           </Typography>
           {auth ? (
             <Fragment>
-              <SignedInLinks
-                classes={classes.navButton}
-                username={profile.initials}
+              <SignedInLinks classes={classes.navButton} />
+              <UserAccountMenu
+                logout={props.logout}
+                initials={profile.initials}
               />
-              <Button
-                className={classes.navButton}
-                onClick={props.logout}
-                variant="contained"
-                styles={{ textTransform: 'lowercase' }}
-              >
-                Logout
-              </Button>
             </Fragment>
           ) : (
             <SignedOutLinks classes={classes.navButton} />
