@@ -22,6 +22,6 @@ const UserAccountButton = ({ username }) => (
   </button>
 );
 
-UserAccountButton.propTypes = {username: PropTypes.string.isRequired,};
+UserAccountButton.propTypes = { username: PropTypes.string };
 
 export default UserAccountButton;
