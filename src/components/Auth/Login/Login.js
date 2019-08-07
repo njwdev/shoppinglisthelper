@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import PageContainer from '../../layout/PageContainer';
 import { connect } from 'react-redux';
 import { login } from '../../../store/actions/authActions';
-import LinkToSignUp from '../../layout/Buttons/LinkToSignUp';
+import LinkButton from '../../layout/Buttons/LinkButton';
 import Divider from '@material-ui/core/Divider';
 
 class Login extends Component {
@@ -63,7 +63,9 @@ class Login extends Component {
         <Divider />
         <div> {authError ? <p> {authError} </p> : null} </div>
         <Divider />
-        <LinkToSignUp />
+        <LinkButton link={'/signup'}>
+          Don't have an account? Sign up here
+        </LinkButton>
       </PageContainer>
     );
   }
