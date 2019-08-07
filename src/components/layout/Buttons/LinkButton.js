@@ -1,16 +1,16 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 
-const LinkToLogin = () => (
+const LinkButton = props => (
   <Button
     style={{ textTransform: 'initial', marginTop: '10px' }}
     variant="text"
     fullWidth
-    href="/signup"
+    href={props.link}
     size="small"
   >
-    Already have an account? Login here
+    {props.children}
   </Button>
 );
 
-export default LinkToLogin;
+export default LinkButton;
