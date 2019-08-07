@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import PageContainer from '../../layout/PageContainer';
 import { connect } from 'react-redux';
 import { login } from '../../../store/actions/authActions';
+import LinkToSignUp from '../../layout/Buttons/LinkToSignUp';
+import Divider from '@material-ui/core/Divider';
 
 class Login extends Component {
   state = {
@@ -52,13 +54,16 @@ class Login extends Component {
           ))}
           <Button
             type="submit"
-            style={{ textTransform: 'capitalize' }}
+            style={{ textTransform: 'capitalize', marginBottom: '20px' }}
             fullWidth
           >
             Login
           </Button>
         </form>
+        <Divider />
         <div> {authError ? <p> {authError} </p> : null} </div>
+        <Divider />
+        <LinkToSignUp />
       </PageContainer>
     );
   }

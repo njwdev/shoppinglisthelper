@@ -58,7 +58,7 @@ class MyLists extends Component {
 
 MyLists.propTypes = {
   classes: PropTypes.shape({}).isRequired,
-  lists: PropTypes.instanceOf(Array).isRequired,
+  lists: PropTypes.instanceOf(Array),
 };
 
 const mapStateToProps = state => {

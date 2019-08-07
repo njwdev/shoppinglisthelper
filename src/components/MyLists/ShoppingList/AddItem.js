@@ -24,7 +24,7 @@ const AddItem = props => {
           <form onSubmit={onSubmit}>
             <List dense>
               {items.map(item => (
-                <ListItem dense>
+                <ListItem key={item.name} dense>
                   <TextField
                     variant="outlined"
                     margin="normal"
