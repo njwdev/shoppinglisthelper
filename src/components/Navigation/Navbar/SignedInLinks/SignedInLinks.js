@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import UserAccountButton from '../../../layout/Buttons/UserAccountButton';
 
 const data = (text, link, onClick) => ({ text, link });
 
@@ -21,7 +20,6 @@ const SignedInLinks = props => {
           {data.text}
         </Button>
       ))}
-      <UserAccountButton username={props.username} />
     </div>
   );
 };
