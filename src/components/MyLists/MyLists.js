@@ -18,6 +18,13 @@ import myListsStyles from './styles';
 class MyLists extends Component {
   render() {
     const { classes, lists, auth } = this.props;
+    // let userLists = [];
+    // lists &&
+    //   lists.forEach(item => {
+    //     if (lists.authorId === auth.uid) {
+    //       console.log(item + 'inside foreach function' + userLists);
+    //     }
+    //   });
     return !lists ? (
       <Spinner />
     ) : auth.uid ? (
