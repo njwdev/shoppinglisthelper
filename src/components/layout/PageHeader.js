@@ -5,16 +5,14 @@ import { Typography } from '@material-ui/core';
 import BackButton from './Buttons/BackButton';
 
 const PageHeader = props => {
-  const { title, link, pageDescription } = props;
+  const { title, link } = props;
   return (
     <Fragment>
       <Grid container direction="row" justify="space-between" alignItems="left">
         {title ? <h2>{title}</h2> : null}
         {link ? <BackButton link={link} /> : null}
       </Grid>
-      <Typography variant="caption" style={{ marginBottom: '5px' }}>
-        {pageDescription}
-      </Typography>
+      <Typography variant="caption" style={{ marginBottom: '5px' }} />
     </Fragment>
   );
 };
