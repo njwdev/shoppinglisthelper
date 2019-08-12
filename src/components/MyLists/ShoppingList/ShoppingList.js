@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PageContainer from '../../layout/PageContainer';
+import PageHeader from '../../layout/PageHeader';
 import ShoppingListStyles from './ShoppingListStyles';
 import { withStyles } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
@@ -54,11 +55,9 @@ class ShoppingList extends Component {
         </PageContainer>
       ) : auth.uid ? (
         <PageContainer>
+          <PageHeader title={items.listname} link="/mylists" />
           <div className={classes.root}>
             <Grid container justify="center" spacing={2}>
-              <Grid xs={12} item>
-                <Typography variant="h4">{items.listname}</Typography>
-              </Grid>
               <Divider />
               <Grid xs={12} item>
                 <Typography variant="subtitle1">{items.description}</Typography>

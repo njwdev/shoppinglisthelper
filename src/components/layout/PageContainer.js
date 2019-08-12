@@ -19,7 +19,5 @@ const PageContainer = props => {
     </Grid>
   );
 };
-PageContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+PageContainer.propTypes = { children: PropTypes.node.isRequired };
 export default PageContainer;

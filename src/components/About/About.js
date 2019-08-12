@@ -5,9 +5,11 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import { AboutData } from './AboutData';
+import PageHeader from '../layout/PageHeader';
 
 const About = () => (
   <PageContainer>
+    <PageHeader title="About" link="/" />
     {AboutData.map(question => {
       return (
         <ExpansionPanel key={question.question}>
